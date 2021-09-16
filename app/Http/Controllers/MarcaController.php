@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Marca;
 use Illuminate\Http\Request;
+use App\Http\Requests\MarcaPost;
+use App\Http\Requests\UpdateMarcaPut;
+use Illuminate\Support\Facades\Validator;
 
 class MarcaController extends Controller
 {
@@ -22,9 +26,15 @@ class MarcaController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(MarcaPost $request)
     {
-        //
+        $requestData = $request->validated();
+        $validator = Validator::make($requestData, MarcaPost::myRules());
+        if ($validator->fails()) {
+            response()->json(['ok' => false]);
+        }
+        $marca = Marca::create($requestData);
+        return response()->json(['ok' => true, 'marca' => $marca]);
     }
 
     /**
@@ -35,7 +45,8 @@ class MarcaController extends Controller
      */
     public function show($id)
     {
-        //
+          $producto = Marca::findOrFail($id);
+          return response()->json(['ok' => true, 'producto' => $producto]);
     }
 
     /**
@@ -45,9 +56,11 @@ class MarcaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateMarcaPut $request, $id)
     {
-        //
+        $marca = Marca::findOrFail($id);
+        $marca = tap($marca)->update($request->all());
+        return response()->json(['ok' => true, 'marca' => $marca]);
     }
 
     /**

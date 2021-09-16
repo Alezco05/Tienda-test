@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\ProductoPost;
 use App\Models\Producto;
 use Illuminate\Http\Request;
+use App\Http\Requests\ProductoPost;
+use App\Http\Requests\UpdateProductoPut;
 use Illuminate\Support\Facades\Validator;
 
 class ProductoController extends Controller
@@ -55,9 +56,11 @@ class ProductoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateProductoPut $request, $id)
     {
-        //
+        $producto = Producto::findOrFail($id);
+        $producto = tap($producto)->update($request->all());
+        return response()->json(['ok' => true, 'producto' => $producto]);
     }
 
     /**

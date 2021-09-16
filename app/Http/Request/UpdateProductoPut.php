@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdatePostPut extends FormRequest
+class UpdateProductoPut extends FormRequest
 {
     public function attributes(){
         return [
