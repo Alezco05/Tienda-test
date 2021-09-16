@@ -6,14 +6,12 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class MarcaPost extends FormRequest
 {
-
     public static function myRules(){
         return [
             'nombre' => 'required|min:5|max:200',
-            'referencia' => 'required|min:3|max:150'
+            'referencia' => 'required|min:3|max:150',
         ];
     }
-
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -31,6 +29,6 @@ class MarcaPost extends FormRequest
      */
     public function rules()
     {
-        return $this->myRules();
+        return $this->myRules();  
     }
 }
