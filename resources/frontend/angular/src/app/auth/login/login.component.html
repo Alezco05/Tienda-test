@@ -1,0 +1,31 @@
+<div class="body">
+  <div class="login-page animate__animated animate__fadeIn">
+    <h2>Iniciar Sesión</h2>
+    <div class="form">
+      <form class="login-form" [formGroup]="form" (ngSubmit)="onSubmitForm()">
+        <input
+          type="text"
+          formControlName="username"
+          name="username"
+          placeholder="Escriba su Identificación"
+          required
+        />
+        <input
+          type="password"
+          name="password"
+          formControlName="password"
+          placeholder="Escriba su contraseña"
+          required
+        />
+        <button [disabled]="form.invalid">login</button>
+        <p class="message"><a [routerLink]="['/auth/olvido-contraseña']">¿Olvidó su contraseña?</a></p>
+      </form>
+    </div>
+
+    <div class="alert alert-dismissible alert-danger mt-4" *ngIf="error">
+      <button type="button" class="close" data-dismiss="alert">×</button>
+      <strong>Email o Contraseña Incorrectas!!</strong>
+    </div>
+  </div>
+</div>
+<router-outlet></router-outlet>

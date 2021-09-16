@@ -1,10 +1,30 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-
-const routes: Routes = [];
+import { Routes, RouterModule } from '@angular/router';
+import { AutenticacionGuard } from './auth/autenticacion.guard';
+import { LoginGuard } from './auth/login.guard';
+const routes: Routes = [
+  // Routes
+  {
+    path: 'auth',
+    loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule),
+    canLoad: [LoginGuard],
+  },
+    // Empty Route Penultimate Route
+  // {
+  //   path: '',
+  //   loadChildren: () => import('./pages/components.module').then(m => m.ComponentsModule),
+  //   canLoad: [AutenticacionGuard],
+  // },
+  // Final Route
+  {
+    path: '**',
+    loadChildren: () => import('./shared/components/not-found/not-found.module').then(m => m.NotFoundModule),
+    canLoad: [AutenticacionGuard],
+  },
+];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  imports: [RouterModule.forRoot(routes, { relativeLinkResolution: 'legacy' })],
+  exports: [RouterModule],
 })
 export class AppRoutingModule { }

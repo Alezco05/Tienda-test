@@ -1,0 +1,213 @@
+<div class="row">
+  <div class="col-12">
+    <form [formGroup]="form">
+      <div class="row d-flex justify-content-center my-2">
+        <div class="col-10">
+          <h1>Credenciales de Usuario</h1>
+        </div>
+      </div>
+      <div class="row d-flex justify-content-center mb-2">
+        <div class="col-12 col-md-5">
+          <mat-form-field class="w-100">
+            <mat-label>Nombres y apellidos</mat-label>
+            <input
+              matInput
+              oninput="this.value = this.value.toUpperCase()"
+              formControlName="name"
+              required
+            />
+          </mat-form-field>
+        </div>
+        <div class="col-12 col-md-5">
+          <mat-form-field class="w-100">
+            <mat-label>Usuario</mat-label>
+            <input matInput formControlName="username" required />
+            <mat-hint>Para mayor seguridad usar cedula de ciudadanía</mat-hint>
+          </mat-form-field>
+        </div>
+      </div>
+      <div *ngIf="!data">
+        <div class="row d-flex justify-content-center mb-2">
+          <div class="col-12 col-md-4">
+            <mat-form-field class="w-100">
+              <mat-label>Contraseña</mat-label>
+              <input
+                type="password"
+                matInput
+                formControlName="password"
+                required
+              />
+              <small
+                style="color: #f53d3d"
+                *ngIf="
+                  form.get('password').value !=
+                    form.get('confirmedPassword').value &&
+                  form.get('confirmedPassword').value != null
+                "
+              >
+                Contraseñas no coinciden</small
+              >
+            </mat-form-field>
+          </div>
+          <div class="col-12 col-md-4">
+            <mat-form-field class="w-100">
+              <mat-label>Confirmar Contraseñxa</mat-label>
+              <input
+                type="password"
+                matInput
+                formControlName="confirmedPassword"
+                required
+              />
+              <small
+                style="color: #f53d3d"
+                *ngIf="
+                  form.get('password').value !=
+                    form.get('confirmedPassword').value &&
+                  form.get('confirmedPassword').value != null
+                "
+              >
+                Contraseñas no coinciden</small
+              >
+            </mat-form-field>
+          </div>
+          <div class="col-12 col-md-2 d-grid gap-2 mb-3">
+            <button
+              type="button"
+              class="btn btn-primary p-1 mt-1"
+              style="font-size: 14px"
+              (click)="setPass()"
+            >
+              Predeterminada
+            </button>
+          </div>
+          <div
+            *ngIf="
+              form.get('password').value == 'Usuario365@' &&
+              form.get('confirmedPassword').value == 'Usuario365@'
+            "
+          >
+            La contraseña por defecto es Usuario365@
+          </div>
+        </div>
+      </div>
+      <div class="row d-flex justify-content-center mb-2">
+        <div class="col-12 col-md-5">
+          <mat-form-field class="w-100">
+            <mat-label>Correo electronico</mat-label>
+            <input type="email" matInput formControlName="email" required />
+          </mat-form-field>
+        </div>
+        <div class="col-12 col-md-5">
+          <mat-form-field class="w-100">
+            <mat-label>Seleccione un rol</mat-label>
+            <mat-select formControlName="role">
+              <mat-option [value]="0">Administrador</mat-option>
+              <mat-option [value]="1">Digitador</mat-option>
+              <mat-option [value]="2">Cuadrilla</mat-option>
+              <mat-option [value]="3">Interventoría</mat-option>
+              <mat-option [value]="4">Gerencial</mat-option>
+              <mat-option [value]="5">Asignador Cuadrilla</mat-option>
+              <mat-option [value]="7">Verificador</mat-option>
+              <mat-option [value]="8">Gestor documental</mat-option>
+              <mat-option [value]="9">Verificador Censo</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+    </form>
+    <div class="row d-flex justify-content-center my-2" *ngIf="data">
+      <div class="col-10">
+        <h1>Permisos</h1>
+        <mat-checkbox [(ngModel)]="checked" (change)="selectAll($event)"
+          >Seleccionar todo</mat-checkbox
+        >
+      </div>
+      <div *ngFor="let m of menu; let i = index">
+        <!--           <div class="row">
+            <div class="col">
+             <mat-checkbox [(ngModel)]="checked" (change)="onCheckChange($event, m)" (click)="selectAll($event, m)"
+              [ngClass]="{'ms-3': m.nivel == 'NV2', 'ms-5': m.nivel == 'NV3'}"> {{ m.menu }}</mat-checkbox>
+            </div>
+          </div> -->
+
+        <div class="row d-flex justify-content-center" *ngIf="m.nivel == 'NV1'">
+          <div class="col-10 py-2" style="background-color:#3f51b5; color: #f5f6fb;">
+            <mat-checkbox
+              [(ngModel)]="m.checked"
+              [checked]="m.checked"
+              (change)="onCheckChangeAll($event, m)">
+            <mat-icon>{{m.icono}}</mat-icon>
+            &nbsp;<strong style="font-size: 18px !important;">{{ m.menu }}</strong></mat-checkbox
+            >
+          </div>
+        </div>
+        <div class="row d-flex justify-content-center"  *ngIf="m.nivel == 'NV2'">
+          <div class="col-10 ms-2 my-1 border-start border-dark">
+            <mat-checkbox
+              [(ngModel)]="m.checked"
+              [checked]="m.checked"
+              (change)="onCheckChange($event, m)"
+            >
+              {{ m.menu }}
+            </mat-checkbox>
+          </div>
+        </div>
+        <div class="row d-flex justify-content-center" *ngIf="m.nivel == 'NV3'">
+          <div class="col-10 ms-3 my-1 border-start border-dark">
+            <mat-checkbox
+              [(ngModel)]="m.checked"
+              [checked]="m.checked"
+              (change)="onCheckChange($event, m)"
+            >
+              {{ m.menu }}
+            </mat-checkbox>
+          </div>
+        </div>
+        <div class="row d-flex justify-content-center" *ngIf="m.nivel == 'NV4'">
+          <div class="col-10 ms-4 my-1 border-start border-dark">
+            <mat-checkbox
+              [(ngModel)]="m.checked"
+              [checked]="m.checked"
+              (change)="onCheckChange($event, m)"
+            >
+              {{ m.menu }}
+            </mat-checkbox>
+          </div>
+        </div>
+        <div class="row d-flex justify-content-center" *ngIf="m.nivel == 'CTR'">
+          <div class="col-10 ms-5 my-1 border-start border-dark">
+            <mat-checkbox
+              [(ngModel)]="m.checked"
+              [checked]="m.checked"
+              (change)="onCheckChange($event, m)"
+            >
+              {{ m.menu }} - <i>Control</i>
+            </mat-checkbox>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row d-flex justify-content-center mb-2">
+      <div *ngIf="data" class="col-5 d-flex justify-content-center">
+        <button
+          mat-raised-button
+          class="w-100"
+          color="primary"
+          (click)="onSubmitEditForm()"
+        >
+          Actualizar Credenciales
+        </button>
+      </div>
+      <div *ngIf="!data" class="col-5 d-flex justify-content-center">
+        <button
+          mat-raised-button
+          class="w-100"
+          color="primary"
+          (click)="onSubmitForm()"
+        >
+          Confirmar Credenciales
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
