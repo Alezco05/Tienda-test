@@ -6,7 +6,6 @@ import { RegisterComponent } from './register.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
-import { MaterialModule } from 'src/app/material/material.module';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatButtonModule} from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
@@ -19,7 +18,7 @@ import { MatIconModule } from '@angular/material/icon';
     RegisterRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    MaterialModule,
+    MatFormFieldModule,
     MatInputModule,
     MatSelectModule,
     MatFormFieldModule,

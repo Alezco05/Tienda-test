@@ -9,6 +9,11 @@ const routes: Routes = [
       import('./login/login.module').then((m) => m.LoginModule),
   },
   {
+    path: 'registro',
+    loadChildren: () =>
+      import('./register/register.module').then((m) => m.RegisterModule),
+  },
+  {
     path: 'olvido-contraseña',
     loadChildren: () =>
       import('./forgot-password/forgot-password.module').then(

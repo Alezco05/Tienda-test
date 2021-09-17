@@ -10,11 +10,11 @@ const routes: Routes = [
     canLoad: [LoginGuard],
   },
     // Empty Route Penultimate Route
-  // {
-  //   path: '',
-  //   loadChildren: () => import('./pages/components.module').then(m => m.ComponentsModule),
-  //   canLoad: [AutenticacionGuard],
-  // },
+   {
+     path: '',
+     loadChildren: () => import('./pages/pages.module').then(m => m.PagesModule),
+    canLoad: [AutenticacionGuard],
+  },
   // Final Route
   {
     path: '**',

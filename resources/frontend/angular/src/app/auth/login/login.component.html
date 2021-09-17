@@ -4,10 +4,10 @@
     <div class="form">
       <form class="login-form" [formGroup]="form" (ngSubmit)="onSubmitForm()">
         <input
-          type="text"
-          formControlName="username"
-          name="username"
-          placeholder="Escriba su Identificación"
+          type="email"
+          formControlName="email"
+          name="email"
+          placeholder="Escriba su email"
           required
         />
         <input

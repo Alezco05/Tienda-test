@@ -19,6 +19,7 @@ export class AutenticacionGuard implements CanLoad {
       (path, currentSegment) => `${path}/${currentSegment.path}`,
       ''
     );
+    console.log('as');
     return localStorage.getItem('usuario')
       ? true
       : urlRespuesta === ''
