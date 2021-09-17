@@ -16,6 +16,9 @@ class CreateProductosTable extends Migration
         Schema::create('productos', function (Blueprint $table) {
             $table->id();
             $table->string('nombreProducto',200)->nullable();
+            $table->foreignId('marca_id')
+            ->references('id')->on('marcas')
+            ->onDelete('cascade');
             $table->string('talla',5)->nullable();
             $table->string('observaciones',255)->nullable();
             $table->integer('cantidad')->nullable();

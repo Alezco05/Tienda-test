@@ -1,20 +1,20 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Router, RouterModule, Routes } from '@angular/router';
 import { ProductosComponent } from './productos.component';
-
-const routes: Routes = [
-  {
-    path: '',
-    component:ProductosComponent
-  }
-]
+import {MatCardModule} from '@angular/material/card';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { ProductoCardComponent } from './producto-card/producto-card.component';
+import { ProductosRoutingModule } from './productos-routing.module';
 
 @NgModule({
-  declarations: [ProductosComponent],
+  declarations: [ProductosComponent, ProductoCardComponent],
   imports: [
     CommonModule,
-    RouterModule.forChild(routes)
+    ProductosRoutingModule,
+    MatCardModule,
+    MatButtonModule,
+    MatIconModule
   ]
 })
 export class ProductosModule { }

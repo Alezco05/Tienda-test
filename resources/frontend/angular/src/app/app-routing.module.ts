@@ -7,19 +7,19 @@ const routes: Routes = [
   {
     path: 'auth',
     loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule),
-    canLoad: [LoginGuard],
+    //canLoad: [LoginGuard],
   },
     // Empty Route Penultimate Route
    {
      path: '',
      loadChildren: () => import('./pages/pages.module').then(m => m.PagesModule),
-    canLoad: [AutenticacionGuard],
+    // canLoad: [AutenticacionGuard],
   },
   // Final Route
   {
     path: '**',
     loadChildren: () => import('./shared/components/not-found/not-found.module').then(m => m.NotFoundModule),
-    canLoad: [AutenticacionGuard],
+    // canLoad: [AutenticacionGuard],
   },
 ];
 

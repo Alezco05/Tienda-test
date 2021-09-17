@@ -6,13 +6,13 @@ const routes: Routes = [
     path: '',
     children: [
       {
-        path: 'perfil',
+        path: 'productos',
         loadChildren: () =>
           import('./productos/productos.module').then((m) => m.ProductosModule),
       },
       {
         path: '',
-        redirectTo: '/perfil',
+        redirectTo: '/productos',
         pathMatch: 'full',
       },
     ],

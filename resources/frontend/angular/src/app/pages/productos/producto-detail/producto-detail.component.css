@@ -1,0 +1,22 @@
+@media (min-width: 768px) {
+    .lined {
+      border-right: 0.1rem solid #e6e6e6
+    }
+  }
+  
+  .circular--landscape {
+    display: flex;
+    justify-content: center;
+    position: relative;
+    width: 200px;
+    height: 200px;
+    overflow: hidden;
+    border-radius: 50%;
+  }
+  
+  .circular--landscape img {
+    width: 200px;
+    height: auto;
+    object-fit: cover;
+  }
+  
