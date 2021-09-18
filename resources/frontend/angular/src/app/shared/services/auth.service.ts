@@ -25,7 +25,6 @@ export class AuthService {
     this.getToken();
     this.headers = new HttpHeaders({
       'Content-Type': 'application/json',
-      Authorization: this.token,
     });
   }
   login(data) {

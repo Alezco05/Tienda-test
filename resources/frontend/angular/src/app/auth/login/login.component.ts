@@ -1,17 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AuthService } from '../../shared/services/auth.service';
 import Swal from 'sweetalert2';
 import { map } from 'rxjs/operators';
+import { Subscription } from 'rxjs';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['login.component.css'],
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, OnDestroy {
   error: number = 0;
   form: FormGroup;
+  subscription: Subscription;
   constructor(
     private fb: FormBuilder,
     private dataService: AuthService,
@@ -33,6 +35,7 @@ export class LoginComponent implements OnInit {
     });
   }
   onSubmitForm() {
+
     Swal.fire({
       toast: true,
       title: 'Autenticando Usuario...',
@@ -48,13 +51,8 @@ export class LoginComponent implements OnInit {
       allowEscapeKey: false,
       allowEnterKey: false,
     });
-    this.dataService
+    this.subscription = this.dataService
       .login(this.form.value)
-      .pipe(
-        map((x: any) =>
-          x.user.role ? { ...x, role: parseInt(x.user.role) } : x
-        )
-      )
       .subscribe({
         next: (resp) => {
           localStorage.setItem('usuario', JSON.stringify(resp));
@@ -75,5 +73,8 @@ export class LoginComponent implements OnInit {
           Swal.close();
         },
       });
+  }
+  ngOnDestroy(){
+    if(this.subscription) this.subscription.unsubscribe();
   }
 }

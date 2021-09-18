@@ -1,1 +1,64 @@
-<p>form-producto works!</p>
+<div *ngIf="data" #else>
+    <h1> Actualizar {{ data.nombreProducto }}</h1>
+</div>
+<ng-template #else>
+    <h1>Crear Producto</h1>
+</ng-template>
+<hr />
+
+<form [formGroup]="form">
+    <h2>Imagen Producto</h2>
+    <div class="row">
+        <mat-form-field class="col-12">
+            <ngx-mat-file-input #removableInput formControlName="file" (change)="fileEvent($event)"
+                placeholder="Subir Imagen" [accept]="'.jpg,.jpeg,.png,.gif'"></ngx-mat-file-input>
+            <mat-icon *ngIf="removableInput.empty" matSuffix>folder</mat-icon>
+            <button mat-icon-button matSuffix *ngIf="!removableInput.empty" (click)="removableInput.clear($event)">
+                <mat-icon>clear</mat-icon>
+            </button>
+            <mat-error *ngIf="form.get('file').errors?.invalidNumber">
+                El número maximo de imagenes son dos.
+            </mat-error>
+            <mat-error *ngIf="form.get('file').hasError('maxContentSize')">
+                El tamaño total no debe exceder
+                {{ form.get('file')?.getError("maxContentSize").maxSize | byteFormat }}
+                ({{ form.get('file')?.getError("maxContentSize").actualSize | byteFormat }}).
+            </mat-error>
+        </mat-form-field>
+    </div>
+</form>
+
+<div *ngIf="data">
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item d-flex justify-content-between" *ngIf="form.get('nombreProducto').value">
+            <strong>Nombre del Producto: </strong><span>{{ form.get("nombreProducto").value }}</span>
+        </li>
+        <li class="list-group-item d-flex justify-content-between" *ngIf="form.get('talla').value">
+            <strong>Talla del Producto: </strong><span>{{ form.get("talla").value }}</span>
+        </li>
+        <li class="list-group-item d-flex justify-content-between" *ngIf="form.get('marca_id').value">
+            <strong>Marca del Producto: </strong> <span>{{ form.get("marca_id").value }}</span>
+        </li>
+        <li class="list-group-item d-flex justify-content-between" *ngIf="form.get('cantidad').value">
+            <strong>Cantidad: </strong>
+            <span>{{ form.get("cantidad").value }}</span>
+        </li>
+        <li class="list-group-item d-flex justify-content-between" *ngIf="form.get('observaciones').value">
+            <strong>Observaciones </strong>
+            <span>{{ form.get("observaciones").value }}</span>
+        </li>
+        <li class="list-group-item d-flex justify-content-between" *ngIf="form.get('fechaEmbarque').value">
+            <strong>Fecha </strong>
+            <span>{{ form.get("fechaEmbarque").value }}</span>
+        </li>
+    </ul>
+</div>
+
+<div class="row mb-4">
+    <div class="col-12 d-grid gap-2">
+        <button mat-stroked-button color="primary" class="btn" [disabled]="!form.valid">
+            <mat-icon>done</mat-icon>
+            <span class="ms-2"> Aceptar</span>
+        </button>
+    </div>
+</div>

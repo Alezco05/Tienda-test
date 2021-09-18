@@ -16,10 +16,10 @@ export class DataService {
   headers: HttpHeaders;
   private url = environment.url;
   constructor(private http: HttpClient, private authService: AuthService) {
-    this.token = authService.token;
+    //
     this.headers = new HttpHeaders({
       'Content-Type': 'application/json',
-      Authorization: this.token,
+      // Authorization: this.token,
     });
   }
   getAllData(route: string) {
@@ -34,14 +34,14 @@ export class DataService {
   }
 
   postData(route: string, data) {
-    return this.http.post(`${this.url}/${route}`, data, {
-      headers: this.headers,
-    });
+    const headers = this.headers;
+    headers.append('Authorization', this.authService.token);
+    return this.http.post(`${this.url}/${route}`, data, { headers });
   }
   putData(route: string, id: number, data) {
-    return this.http.put(`${this.url}/${route}/${id}`, data, {
-      headers: this.headers,
-    });
+    const headers = this.headers;
+    headers.append('Authorization', this.authService.token);
+    return this.http.put(`${this.url}/${route}/${id}`, data, { headers });
   }
   uploadImage(route: string, myFormData: FormData) {
     const headers = new HttpHeaders().set('Authorization', this.token);

@@ -9,6 +9,11 @@ import { ProductosRoutingModule } from './productos-routing.module';
 import { FormProductoComponent } from './form-producto/form-producto.component';
 
 import { MatDialogModule } from '@angular/material/dialog';
+import { MaterialFileInputModule } from 'ngx-material-file-input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [ProductosComponent, ProductoCardComponent, FormProductoComponent],
@@ -19,6 +24,12 @@ import { MatDialogModule } from '@angular/material/dialog';
     MatButtonModule,
     MatIconModule,
     MatDialogModule,
+    MaterialFileInputModule,
+    MatFormFieldModule,
+    MatInputModule, 
+    MatSelectModule,
+    ReactiveFormsModule
+  
   ]
 })
 export class ProductosModule { }
