@@ -10,6 +10,7 @@ class ProductoPost extends FormRequest
     public static function myRules(){
         return [
             'nombreProducto' => 'required|min:5|max:500',
+            'marca_id' => 'required',
             'talla' => 'required|max:5',
             'observaciones' => 'max:500',
             'cantidad' => 'required',

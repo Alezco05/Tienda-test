@@ -1,36 +1,28 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 import { Producto } from 'src/app/shared/models/productos';
+import { DataService } from 'src/app/shared/services/data.service';
 
 @Component({
   selector: 'app-productos',
   templateUrl: './productos.component.html',
-  styles: ['']
+  styles: [''],
 })
-export class ProductosComponent implements OnInit {
-  productos: Producto[] = [
-    {
-      nombreProducto: 'Camisa',
-      marca_id: 1,
-      id: 1,
-    },
-    {
-      nombreProducto: 'Zapatos',
-      marca_id: 1,
-      id: 2,
-    },
-    {
-      nombreProducto: 'Camisa',
-      marca_id: 1,
-      id: 3,
-    },
-    {
-      nombreProducto: 'Camisa',
-      marca_id: 1,
-    }
-  ]
-  constructor() { }
-
-  ngOnInit(): void {
+export class ProductosComponent implements OnInit, OnDestroy {
+  productos: Producto[] = [];
+  unsubscribeSignal: Subject<void> = new Subject();
+  constructor(private dataService: DataService) {
+    this.dataService.getAllData('producto')
+    .pipe(takeUntil(this.unsubscribeSignal))
+    .subscribe({
+      next: (resp: Producto[]) => this.productos = resp
+    });
   }
 
+  ngOnInit(): void {}
+  ngOnDestroy(): void {
+    this.unsubscribeSignal.next();
+    this.unsubscribeSignal.unsubscribe();
+  }
 }

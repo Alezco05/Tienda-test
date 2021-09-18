@@ -17,7 +17,7 @@ class MarcaController extends Controller
      */
     public function index()
     {
-        //
+        return Marca::all();
     }
 
     /**

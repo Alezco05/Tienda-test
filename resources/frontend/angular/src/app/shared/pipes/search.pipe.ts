@@ -30,20 +30,6 @@ export class SearchPipe implements PipeTransform {
           }
         }
       });
-      /* for (const post of value) {
-        if (post != undefined) {
-          if (!isNaN(cadena)) {
-            const search = post.Identificacion.toString();
-            if (post.Identificacion.toString().indexOf(cadena) > -1) {
-              resultPosts.push(post);
-            }
-          } else {
-            if (post.usuario.toLowerCase().indexOf(cadena.toLowerCase()) > -1) {
-              resultPosts.push(post);
-            }
-          }
-        }
-      } */
     }
     return resultPosts;
   }

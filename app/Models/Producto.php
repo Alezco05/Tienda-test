@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Marca;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Producto extends Model
 {
@@ -12,8 +13,13 @@ class Producto extends Model
         'nombreProducto',
         'marcaProducto',
         'talla',
+        'marca_id',
         'observaciones',
         'cantidad',
         'fechaEmbarque'
     ];
+    public function marca()
+    {
+        return $this->belongsTo(Marca::class);
+    }
 }

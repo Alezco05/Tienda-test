@@ -27,6 +27,6 @@ Route::group(['prefix' => 'auth'], function () {
     });
 });
 Route::group(['middleware' => 'auth:api'], function () {
-    Route::apiResource('producto', App\Http\Controllers\PostController::class);
+    Route::apiResource('producto', App\Http\Controllers\ProductoController::class);
     Route::apiResource('marca', App\Http\Controllers\MarcaController::class);
 });
