@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ProductosComponent } from './productos.component';
-import {MatCardModule} from '@angular/material/card';
+import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { ProductoCardComponent } from './producto-card/producto-card.component';
@@ -14,9 +14,15 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { ReactiveFormsModule } from '@angular/forms';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
 
 @NgModule({
-  declarations: [ProductosComponent, ProductoCardComponent, FormProductoComponent],
+  declarations: [
+    ProductosComponent,
+    ProductoCardComponent,
+    FormProductoComponent,
+  ],
   imports: [
     CommonModule,
     ProductosRoutingModule,
@@ -26,10 +32,12 @@ import { ReactiveFormsModule } from '@angular/forms';
     MatDialogModule,
     MaterialFileInputModule,
     MatFormFieldModule,
-    MatInputModule, 
+    MatInputModule,
     MatSelectModule,
-    ReactiveFormsModule
-  
-  ]
+    ReactiveFormsModule,
+    MatDatepickerModule,
+    MatNativeDateModule 
+  ],
+  providers: [{ provide: MAT_DATE_LOCALE, useValue: 'es-GB' }],
 })
-export class ProductosModule { }
+export class ProductosModule {}

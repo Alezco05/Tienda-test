@@ -1,5 +1,6 @@
 import { Component, Inject, OnInit, Optional } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { DateAdapter } from '@angular/material/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FileValidator } from 'ngx-material-file-input';
 import { Producto } from 'src/app/shared/models/productos';
@@ -16,8 +17,12 @@ export class FormProductoComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     public dialogRef: MatDialogRef<FormProductoComponent>,
-    @Optional() @Inject(MAT_DIALOG_DATA) public data: Producto
-  ) {}
+    @Optional() @Inject(MAT_DIALOG_DATA) public data: Producto,
+    private dateAdapter: DateAdapter<Date>
+  ) {
+    this.dateAdapter.setLocale('es');
+    this.dateAdapter.getFirstDayOfWeek = () => 1;
+  }
 
   ngOnInit(): void {
     this.makeForm();

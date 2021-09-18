@@ -26,39 +26,61 @@
             </mat-error>
         </mat-form-field>
     </div>
-</form>
-
-<div *ngIf="data">
-    <ul class="list-group list-group-flush">
-        <li class="list-group-item d-flex justify-content-between" *ngIf="form.get('nombreProducto').value">
-            <strong>Nombre del Producto: </strong><span>{{ form.get("nombreProducto").value }}</span>
-        </li>
-        <li class="list-group-item d-flex justify-content-between" *ngIf="form.get('talla').value">
-            <strong>Talla del Producto: </strong><span>{{ form.get("talla").value }}</span>
-        </li>
-        <li class="list-group-item d-flex justify-content-between" *ngIf="form.get('marca_id').value">
-            <strong>Marca del Producto: </strong> <span>{{ form.get("marca_id").value }}</span>
-        </li>
-        <li class="list-group-item d-flex justify-content-between" *ngIf="form.get('cantidad').value">
-            <strong>Cantidad: </strong>
-            <span>{{ form.get("cantidad").value }}</span>
-        </li>
-        <li class="list-group-item d-flex justify-content-between" *ngIf="form.get('observaciones').value">
-            <strong>Observaciones </strong>
-            <span>{{ form.get("observaciones").value }}</span>
-        </li>
-        <li class="list-group-item d-flex justify-content-between" *ngIf="form.get('fechaEmbarque').value">
-            <strong>Fecha </strong>
-            <span>{{ form.get("fechaEmbarque").value }}</span>
-        </li>
-    </ul>
-</div>
-
-<div class="row mb-4">
-    <div class="col-12 d-grid gap-2">
-        <button mat-stroked-button color="primary" class="btn" [disabled]="!form.valid">
-            <mat-icon>done</mat-icon>
-            <span class="ms-2"> Aceptar</span>
-        </button>
+    <div class="row">
+        <div class="col-md-6 col-12">
+            <mat-form-field appearance="legacy" class="w-100">
+                <mat-label>Nombre del producto</mat-label>
+                <input matInput placeholder="Nombre del producto" formControlName="nombreProducto" />
+            </mat-form-field>
+        </div>
+        <div class="col-md-4 col-12">
+            <mat-form-field appearance="legacy" class="w-100">
+                <mat-label>Talla</mat-label>
+                <mat-select formControlName="talla">
+                    <mat-option *ngFor="let t of tallas" [value]="t">{{t}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
     </div>
-</div>
+    <div class="row mb-md-3">
+        <div class="col-md-6 col-12">
+            <mat-form-field appearance="legacy" class="w-100">
+                <mat-label>Cantidad</mat-label>
+                <input matInput placeholder="" type="number" formControlName="cantidad" />
+            </mat-form-field>
+        </div>
+        <div class="col-md-6 col-12">
+            <mat-form-field appearance="legacy" class="w-100">
+                <mat-label>Fecha de exp. Cámara de comercio</mat-label>
+                <input matInput [matDatepicker]="picker1" formControlName="fechaEmbarque" />
+                <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                <mat-datepicker #picker1></mat-datepicker>
+            </mat-form-field>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <mat-form-field appearance="legacy" class="w-100">
+                <mat-label>Observaciones del producto</mat-label>
+                <textarea matInput placeholder="Descripción detallada del producto que brinda..."
+                    formControlName="observaciones"></textarea>
+                <!--  <mat-hint>Hint</mat-hint> -->
+            </mat-form-field>
+        </div>
+    </div>
+
+    <div class="row mb-4">
+        <div class="col-6 d-grid gap-2">
+            <button mat-stroked-button color="primary" class="btn" [disabled]="!form.valid">
+                <mat-icon>done</mat-icon>
+                <span class="ms-2"> Aceptar</span>
+            </button>
+        </div>
+        <div class="col-6 d-grid gap-2">
+            <button mat-stroked-button color="warn" class="btn" (click)="dialogRef.close()">
+                <mat-icon>close</mat-icon>
+                <span class="ms-2"> Cancelar</span>
+            </button>
+        </div>
+    </div>
+</form>

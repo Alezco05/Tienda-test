@@ -21,7 +21,7 @@ const routes: Routes= [
     MatIconModule,
     MatButtonModule,
     MatDialogModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
   ]
 })
 export class ProductosDetailModule { }
