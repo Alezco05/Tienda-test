@@ -70,7 +70,7 @@ export class LoginComponent implements OnInit {
         complete: () => {
           const url = this.route.snapshot.queryParams['urlRespuesta'];
           if (url === '/' || url === '' || url === undefined)
-            this.router.navigate(['/perfil']);
+            this.router.navigate(['/productos']);
           else this.router.navigate([url]);
           Swal.close();
         },

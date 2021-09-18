@@ -45,7 +45,7 @@ class ProductoController extends Controller
      */
     public function show($id)
     {
-          $producto = Producto::findOrFail($id);
+          $producto = Producto::findOrFail($id)->with('marca')->first();
           return response()->json(['ok' => true, 'producto' => $producto]);
     }
 

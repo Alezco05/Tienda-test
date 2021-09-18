@@ -26,7 +26,7 @@ Route::group(['prefix' => 'auth'], function () {
         Route::get('user', [App\Http\Controllers\AuthController::class, 'user']);
     });
 });
+Route::apiResource('producto', App\Http\Controllers\ProductoController::class);
+Route::apiResource('marca', App\Http\Controllers\MarcaController::class);
 Route::group(['middleware' => 'auth:api'], function () {
-    Route::apiResource('producto', App\Http\Controllers\ProductoController::class);
-    Route::apiResource('marca', App\Http\Controllers\MarcaController::class);
 });
