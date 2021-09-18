@@ -6,15 +6,19 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { ProductoCardComponent } from './producto-card/producto-card.component';
 import { ProductosRoutingModule } from './productos-routing.module';
+import { FormProductoComponent } from './form-producto/form-producto.component';
+
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
-  declarations: [ProductosComponent, ProductoCardComponent],
+  declarations: [ProductosComponent, ProductoCardComponent, FormProductoComponent],
   imports: [
     CommonModule,
     ProductosRoutingModule,
     MatCardModule,
     MatButtonModule,
-    MatIconModule
+    MatIconModule,
+    MatDialogModule,
   ]
 })
 export class ProductosModule { }
