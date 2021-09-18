@@ -26,7 +26,15 @@ Route::group(['prefix' => 'auth'], function () {
         Route::get('user', [App\Http\Controllers\AuthController::class, 'user']);
     });
 });
-Route::apiResource('producto', App\Http\Controllers\ProductoController::class);
-Route::apiResource('marca', App\Http\Controllers\MarcaController::class);
+
+
+Route::get('getProductos', [App\Http\Controllers\ProductoController::class, 'index']);
+Route::get('getMarcas', [App\Http\Controllers\MarcaController::class, 'index']);
+Route::get('getProducto/{id}', [App\Http\Controllers\ProductoController::class, 'show']);
+Route::get('getMarca/{id}', [App\Http\Controllers\MarcaController::class, 'show']);
+
 Route::group(['middleware' => 'auth:api'], function () {
+    Route::apiResource('producto', App\Http\Controllers\ProductoController::class)->except(['index', 'show']);;
+    Route::apiResource('marca', App\Http\Controllers\MarcaController::class)->except(['index', 'show']);
+    Route::post('productoImg', [App\Http\Controllers\ProductoController::class, 'uploadImage']); 
 });

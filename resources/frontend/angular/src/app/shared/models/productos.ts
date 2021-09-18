@@ -8,4 +8,5 @@ export interface Producto {
   observaciones?: string;
   cantidad?: string;
   fechaEmbarque?: string;
+  imageurl?: string;
 }

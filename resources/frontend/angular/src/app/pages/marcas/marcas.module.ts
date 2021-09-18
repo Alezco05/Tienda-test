@@ -5,8 +5,17 @@ import { FormMarcaComponent } from './form-marca/form-marca.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
+import { NgxPaginationModule } from 'ngx-pagination';
+import { RouterModule, Routes } from '@angular/router';
+import { MyPipesModule } from 'src/app/shared/pipes/pipe.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-
+const routes: Routes = [
+  {
+    path: '',
+    component: MarcasComponent
+  }
+]
 
 @NgModule({
   declarations: [
@@ -17,7 +26,12 @@ import { MatButtonModule } from '@angular/material/button';
     CommonModule,
     MatDialogModule,
     MatIconModule,
-    MatButtonModule
+    MatButtonModule,
+    NgxPaginationModule,
+    MyPipesModule,
+    RouterModule.forChild(routes),
+    FormsModule,
+    ReactiveFormsModule
   ]
 })
 export class MarcasModule { }

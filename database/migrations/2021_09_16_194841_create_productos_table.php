@@ -23,6 +23,8 @@ class CreateProductosTable extends Migration
             $table->string('observaciones',255)->nullable();
             $table->integer('cantidad')->nullable();
             $table->date('fechaEmbarque')->nullable();
+            $table->string('imgurl',255)->nullable();
+            $table->tinyInteger('activa')->nullable()->default('1');
             $table->timestamps();
         });
     }

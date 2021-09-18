@@ -17,6 +17,7 @@ class CreateMarcasTable extends Migration
             $table->id();
             $table->string('nombre',200)->nullable();
             $table->string('referencia',150)->nullable();
+            $table->tinyInteger('activa')->nullable()->default('1');
             $table->timestamps();
         });
     }

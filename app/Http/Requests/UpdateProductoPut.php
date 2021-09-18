@@ -6,9 +6,12 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateProductoPut extends FormRequest
 {
-    public function attributes(){
+    public static function myRules(){
         return [
-            'nombreProducto' => "Nombre del producto"
+            'nombreProducto' => 'required|min:5|max:500',
+            'talla' => 'required|max:5',
+            'observaciones' => 'required|max:500',
+            'cantidad' => 'required',
         ];
     }
 
@@ -29,12 +32,7 @@ class UpdateProductoPut extends FormRequest
      * @return array
      */
     public function rules()
-    {
-        return [
-            'nombreProducto' => 'min:5|max:500',
-            'talla' => 'max:5',
-            'observaciones' => 'max:500',
-            'cantidad' => 'number',
-        ];
+    { 
+        return $this->myRules();
     }
 }

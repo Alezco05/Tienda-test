@@ -11,6 +11,11 @@ const routes: Routes = [
           import('./productos/productos.module').then((m) => m.ProductosModule),
       },
       {
+        path: 'marcas',
+        loadChildren: () =>
+          import('./marcas/marcas.module').then((m) => m.MarcasModule),
+      },
+      {
         path: '',
         redirectTo: '/productos',
         pathMatch: 'full',

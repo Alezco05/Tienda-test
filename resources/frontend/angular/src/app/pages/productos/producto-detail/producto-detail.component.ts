@@ -6,14 +6,16 @@ import { Producto } from 'src/app/shared/models/productos';
 import { User, Usuario } from 'src/app/shared/models/user';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { DataService } from 'src/app/shared/services/data.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-producto-detail',
   templateUrl: './producto-detail.component.html',
-  styles: [],
+  styleUrls: ['./producto-detail.component.css'],
 })
 export class ProductoDetailComponent implements OnDestroy {
   unsubscribeSignal: Subject<void> = new Subject();
+  url: string = environment.url.split('api')[0];
   producto: Producto;
   usuario: Usuario;
   constructor(
@@ -22,14 +24,17 @@ export class ProductoDetailComponent implements OnDestroy {
     private authService: AuthService,
     public dialog: MatDialog
   ) {
-    const id: number = this.route.snapshot.params.id;
     this.usuario = this.authService.usuario;
+    this.getProduct();
+  }
+  getProduct(){
+    const id: number = this.route.snapshot.params.id;
     this.dataService
-      .getData('producto', id)
-      .pipe(pluck('producto'), takeUntil(this.unsubscribeSignal))
-      .subscribe({
-        next: (resp: Producto) => (this.producto = resp),
-      });
+    .getData('getProducto', id)
+    .pipe(pluck('producto'), takeUntil(this.unsubscribeSignal))
+    .subscribe({
+      next: (resp: Producto) => (this.producto = resp),
+    });
   }
   async openModal(data) {
     const { FormProductoComponent } = await import(
@@ -42,7 +47,9 @@ export class ProductoDetailComponent implements OnDestroy {
     dialogRef
       .afterClosed()
       .pipe(takeUntil(this.unsubscribeSignal.asObservable()))
-      .subscribe((result) => {});
+      .subscribe(() => {
+        this.getProduct();
+      });
   }
   ngOnDestroy(): void {
     this.unsubscribeSignal.next();

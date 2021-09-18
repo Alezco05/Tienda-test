@@ -13,7 +13,7 @@ export class ProductosComponent implements OnInit, OnDestroy {
   productos: Producto[] = [];
   unsubscribeSignal: Subject<void> = new Subject();
   constructor(private dataService: DataService) {
-    this.dataService.getAllData('producto')
+    this.dataService.getAllData('getProductos')
     .pipe(takeUntil(this.unsubscribeSignal))
     .subscribe({
       next: (resp: Producto[]) => this.productos = resp

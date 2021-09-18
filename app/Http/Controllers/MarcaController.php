@@ -17,7 +17,7 @@ class MarcaController extends Controller
      */
     public function index()
     {
-        return Marca::all();
+        return Marca::where('activa', '=' ,'1')->get();
     }
 
     /**
@@ -58,6 +58,11 @@ class MarcaController extends Controller
      */
     public function update(UpdateMarcaPut $request, $id)
     {
+        $requestData = $request->validated();
+        $validator = Validator::make($requestData, UpdateMarcaPut::myRules());
+        if ($validator->fails()) {
+            response()->json(['ok' => false]);
+        }
         $marca = Marca::findOrFail($id);
         $marca = tap($marca)->update($request->all());
         return response()->json(['ok' => true, 'marca' => $marca]);
@@ -71,6 +76,7 @@ class MarcaController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $marca = Marca::findOrFail($id);
+        return tap($marca)->update(['activa' => 0]);
     }
 }

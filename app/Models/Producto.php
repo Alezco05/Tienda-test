@@ -16,7 +16,9 @@ class Producto extends Model
         'marca_id',
         'observaciones',
         'cantidad',
-        'fechaEmbarque'
+        'fechaEmbarque',
+        'imageurl',
+        'activa'
     ];
     public function marca()
     {
