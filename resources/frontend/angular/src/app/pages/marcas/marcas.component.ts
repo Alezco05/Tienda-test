@@ -69,8 +69,7 @@ export class MarcasComponent implements OnInit, OnDestroy {
       './form-marca/form-marca.component'
     );
     const dialogRef = this.dialog.open(FormMarcaComponent, {
-      width: '800px',
-      height: '100%',
+      width: '400px',
       data,
     });
     dialogRef

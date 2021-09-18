@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit, Optional } from '@angular/core';
+import { Component, Inject, OnDestroy, OnInit, Optional } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DateAdapter } from '@angular/material/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
@@ -14,7 +14,7 @@ import { DataService } from 'src/app/shared/services/data.service';
   templateUrl: './form-producto.component.html',
   styleUrls: ['./form-producto.component.css'],
 })
-export class FormProductoComponent implements OnInit {
+export class FormProductoComponent implements OnInit, OnDestroy {
   unsubscribeSignal: Subject<void> = new Subject();
   myFormData: FormData = new FormData();
   form: FormGroup;
@@ -29,12 +29,12 @@ export class FormProductoComponent implements OnInit {
   ) {
     this.dateAdapter.setLocale('es');
     this.dateAdapter.getFirstDayOfWeek = () => 1;
-    this.dataService.getAllData('getMarcas',)
-    .pipe(takeUntil(this.unsubscribeSignal.asObservable()))
-    .subscribe({
-      next: (resp: Marca[]) => this.marcas = resp,
-    });
-   
+    this.dataService
+      .getAllData('getMarcas')
+      .pipe(takeUntil(this.unsubscribeSignal.asObservable()))
+      .subscribe({
+        next: (resp: Marca[]) => (this.marcas = resp),
+      });
   }
 
   ngOnInit(): void {
@@ -105,13 +105,18 @@ export class FormProductoComponent implements OnInit {
       .pipe(takeUntil(this.unsubscribeSignal.asObservable()))
       .subscribe({
         next: async (resp: Producto) => {
-          await this.uploadFile(resp.id);
-          this.dataService.presentSwall(
-            'Exito!',
-            'Dato Creado',
-            'success',
-            2000
-          );
+          const promise = new Promise(() => {
+            this.uploadFile(resp.id);
+          });
+          promise.then(() => {
+            this.dataService.presentSwall(
+              'Exito!',
+              'Dato Creado',
+              'success',
+              2000
+            );
+            this.dialogRef.close();
+          });
         },
         error: () =>
           this.dataService.presentSwall(

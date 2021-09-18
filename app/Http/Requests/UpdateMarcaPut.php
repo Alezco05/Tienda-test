@@ -11,6 +11,13 @@ class UpdateMarcaPut extends FormRequest
      *
      * @return bool
      */
+    public static function myRules(){
+        return [
+            'nombre' => 'min:5|max:200',
+            'referencia' => 'min:3|max:150'
+        ];
+    }
+
 
     public function authorize()
     {
@@ -24,9 +31,6 @@ class UpdateMarcaPut extends FormRequest
      */
     public function rules()
     {
-        return [
-            'nombre' => 'min:5|max:200',
-            'referencia' => 'min:3|max:150'
-        ];
+        return $this->myRules();
     }
 }
