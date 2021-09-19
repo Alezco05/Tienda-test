@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
 import { Producto } from 'src/app/shared/models/productos';
@@ -14,9 +15,16 @@ import Swal from 'sweetalert2';
 })
 export class ProductoCardComponent implements OnInit {
   @Input() productos: Producto[] = [];
+  @Input() filterPost: string = '';
   unsubscribeSignal: Subject<void> = new Subject();
   usuario: Usuario;
-  constructor(private router: Router, private dataService: DataService, private authService: AuthService) {
+  p: number = 1;
+  constructor(
+    private router: Router,
+    private dataService: DataService,
+    private authService: AuthService,
+    public dialog: MatDialog
+  ) {
     this.usuario = this.authService.usuario;
   }
   ngOnInit(): void {}
@@ -51,6 +59,25 @@ export class ProductoCardComponent implements OnInit {
           });
       }
     });
+  }
+  async openModal() {
+    const { FormProductoComponent } = await import(
+      '../form-producto/form-producto.component'
+    );
+    const dialogRef = this.dialog.open(FormProductoComponent, {
+      width: '900px',
+    });
+    dialogRef
+      .afterClosed()
+      .pipe(takeUntil(this.unsubscribeSignal.asObservable()))
+      .subscribe(() => {
+        this.dataService
+          .getAllData('getProductos')
+          .pipe(takeUntil(this.unsubscribeSignal))
+          .subscribe({
+            next: (resp: Producto[]) => (this.productos = resp),
+          });
+      });
   }
   ngOnDestroy(): void {
     this.unsubscribeSignal.next();

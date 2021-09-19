@@ -4,7 +4,7 @@ import { DateAdapter } from '@angular/material/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import * as moment from 'moment';
 import { FileValidator } from 'ngx-material-file-input';
-import { Subject, takeUntil } from 'rxjs';
+import { pluck, Subject, takeUntil } from 'rxjs';
 import { Marca } from 'src/app/shared/models/marca';
 import { Producto } from 'src/app/shared/models/productos';
 import { DataService } from 'src/app/shared/services/data.service';
@@ -43,11 +43,25 @@ export class FormProductoComponent implements OnInit, OnDestroy {
   }
   makeForm() {
     this.form = this.formBuilder.group({
-      file: ['', [FileValidator.maxContentSize(300000)]],
-      nombreProducto: ['', [Validators.required, Validators.maxLength(100)]],
+      file: ['', [FileValidator.maxContentSize(3000000)]],
+      nombreProducto: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(4),
+          Validators.maxLength(100),
+        ],
+      ],
       talla: ['', [Validators.required]],
       marca_id: ['', [Validators.required]],
-      observaciones: ['', [Validators.required, Validators.maxLength(250)]],
+      observaciones: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(4),
+          Validators.maxLength(250),
+        ],
+      ],
       cantidad: [
         0,
         [Validators.required, Validators.pattern(/^-?(0|[1-9]\d*)?$/)],
@@ -104,19 +118,27 @@ export class FormProductoComponent implements OnInit, OnDestroy {
       .postData('producto', data)
       .pipe(takeUntil(this.unsubscribeSignal.asObservable()))
       .subscribe({
-        next: async (resp: Producto) => {
-          const promise = new Promise(() => {
-            this.uploadFile(resp.id);
-          });
-          promise.then(() => {
-            this.dataService.presentSwall(
-              'Exito!',
-              'Dato Creado',
-              'success',
-              2000
-            );
+        next: (resp: any) => {
+          this.dataService.presentSwall(
+            'Exito!',
+            'Dato Creado',
+            'success',
+            2000
+          );
+          if (this.form.get('file').value != '') {
+            this.uploadFile(resp.producto.id)
+              .then(() => this.dialogRef.close())
+              .catch(() => {
+                this.dataService.presentSwall(
+                  'Error!',
+                  'Ha sucedido algo inesperado',
+                  'danger',
+                  2000
+                );
+              });
+          } else {
             this.dialogRef.close();
-          });
+          }
         },
         error: () =>
           this.dataService.presentSwall(

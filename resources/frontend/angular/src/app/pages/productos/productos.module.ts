@@ -13,9 +13,11 @@ import { MaterialFileInputModule } from 'ngx-material-file-input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
+import { MyPipesModule } from 'src/app/shared/pipes/pipe.module';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @NgModule({
   declarations: [
@@ -36,7 +38,10 @@ import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
     MatSelectModule,
     ReactiveFormsModule,
     MatDatepickerModule,
-    MatNativeDateModule 
+    MatNativeDateModule,
+    FormsModule,
+    MyPipesModule,
+    NgxPaginationModule
   ],
   providers: [{ provide: MAT_DATE_LOCALE, useValue: 'es-GB' }],
 })

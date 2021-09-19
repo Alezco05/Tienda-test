@@ -1,3 +1,23 @@
 <div class="row">
-   <app-producto-card [productos]="productos"></app-producto-card>
+   
+</div>
+
+<div class="row d-flex">
+   <div class="col">
+       <nav class="navbar navbar-light">
+           <div class="container-fluid mt-2 px-2">
+               <a class="navbar-brand">
+                   <mat-icon>store</mat-icon> Listado de Productos
+               </a>
+               <ul class="navbar-nav me-auto mb-2 mb-lg-0"></ul>
+           </div>
+       </nav>
+       <div class="card p-sm-3 border-0 mt-1" style="
+       border-radius: 0.25rem;
+       box-shadow: 1px 1px 2px rgb(91 101 130 / 10%);
+     ">
+           <app-producto-card [productos]="productos" [filterPost]="filterPost"></app-producto-card>
+       </div>
+       <br />
+   </div>
 </div>

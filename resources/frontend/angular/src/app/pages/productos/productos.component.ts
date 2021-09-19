@@ -2,6 +2,8 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { Producto } from 'src/app/shared/models/productos';
+import { Usuario } from 'src/app/shared/models/user';
+import { AuthService } from 'src/app/shared/services/auth.service';
 import { DataService } from 'src/app/shared/services/data.service';
 
 @Component({
@@ -11,6 +13,7 @@ import { DataService } from 'src/app/shared/services/data.service';
 })
 export class ProductosComponent implements OnInit, OnDestroy {
   productos: Producto[] = [];
+  filterPost = '';
   unsubscribeSignal: Subject<void> = new Subject();
   constructor(private dataService: DataService) {
     this.dataService.getAllData('getProductos')
