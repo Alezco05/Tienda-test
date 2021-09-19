@@ -5,6 +5,9 @@
         <button *ngIf="usuario.role == 'admin'" (click)="openModal()" class="btn btn-outline-primary d-flex align-items-center m-1">
             <mat-icon style="font-size: 18px; height: 18px">add_business</mat-icon>Agregar
         </button>
+        <button *ngIf="usuario.role == 'admin'" (click)="getExcel()" class="btn btn-outline-success d-flex align-items-center m-1">
+            <mat-icon style="font-size: 18px; height: 18px">article</mat-icon>Descargar Excel
+        </button>
     </div>
     <div class="col-4 mt-4" *ngFor="let p of productos | search: filterPost | paginate: { itemsPerPage: 6, currentPage: p }">
         <mat-card class="example-card">

@@ -7,6 +7,7 @@ import { Usuario } from 'src/app/shared/models/user';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { DataService } from 'src/app/shared/services/data.service';
 import Swal from 'sweetalert2';
+import * as FileSaver from 'file-saver';
 
 @Component({
   selector: 'app-producto-card',
@@ -78,6 +79,20 @@ export class ProductoCardComponent implements OnInit {
             next: (resp: Producto[]) => (this.productos = resp),
           });
       });
+  }
+  getExcel(){
+    this.dataService
+    .getFile('excel')
+    .pipe(takeUntil(this.unsubscribeSignal.asObservable()))
+    .subscribe({
+      next: (resp) => {
+        FileSaver.saveAs(resp, `Productos.xlsx`);
+      },
+      error: (err) => console.log(err),
+      complete: () => {
+        Swal.close();
+      },
+    });
   }
   ngOnDestroy(): void {
     this.unsubscribeSignal.next();

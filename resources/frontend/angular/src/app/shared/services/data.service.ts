@@ -55,6 +55,13 @@ export class DataService {
     this.setHeaders();
     return this.http.delete(`${this.url}/${route}/${id}`, { headers: this.headers });
   }
+  getFile(route: string) {
+    this.setHeaders();
+    return this.http.get(`${this.url}/${route}`, {
+      headers: this.headers,
+      responseType: 'blob',
+    });
+  }
   uploadImage(route: string, myFormData: FormData) {
     const headers = new HttpHeaders().set('Authorization', this.authService.token);
     headers.append('Content-Type', 'multipart/form-data');

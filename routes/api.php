@@ -1,5 +1,6 @@
 <?php
 
+use App\Exports\ProductosExport;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -37,4 +38,7 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::apiResource('producto', App\Http\Controllers\ProductoController::class)->except(['index', 'show']);;
     Route::apiResource('marca', App\Http\Controllers\MarcaController::class)->except(['index', 'show']);
     Route::post('productoImg', [App\Http\Controllers\ProductoController::class, 'uploadImage']); 
+    Route::get('/excel', function () {
+        return Excel::download(new ProductosExport, 'products.xlsx');
+    });
 });
