@@ -7,7 +7,7 @@
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
-          "style": "scss"
+          "style": "css"
         },
         "@schematics/angular:application": {
           "strict": true
@@ -60,7 +60,7 @@
                 {
                   "type": "initial",
                   "maximumWarning": "500kb",
-                  "maximumError": "1mb"
+                  "maximumError": "2mb"
                 },
                 {
                   "type": "anyComponentStyle",
@@ -107,7 +107,7 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.scss"
+              "src/styles.css"
             ],
             "scripts": []
           }
@@ -142,4 +142,3 @@
   },
   "defaultProject": "angular"
 }
-
