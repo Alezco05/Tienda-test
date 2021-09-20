@@ -14,9 +14,14 @@
           </li>
         </ul>
         <form class="d-flex">
-            <button mat-icon-button aria-label="Login" >
+            <button *ngIf="!authService.token" mat-icon-button aria-label="Login" >
               <a [routerLink]="['../auth/login/']">
                 <mat-icon>person</mat-icon>
+              </a>
+            </button>
+            <button *ngIf="authService.token" mat-icon-button aria-label="Logout" >
+              <a (click)="logout()">
+                <mat-icon>logout</mat-icon>
               </a>
             </button>
         </form>

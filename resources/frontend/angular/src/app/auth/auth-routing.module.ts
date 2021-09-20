@@ -12,20 +12,6 @@ const routes: Routes = [
     loadChildren: () =>
       import('./register/register.module').then((m) => m.RegisterModule),
   },
-  {
-    path: 'olvido-contraseña',
-    loadChildren: () =>
-      import('./forgot-password/forgot-password.module').then(
-        (m) => m.ForgotPasswordModule
-      ),
-  },
-  {
-    path: 'reset-password/:token',
-    loadChildren: () =>
-      import('./reset-password/reset-password.module').then(
-        (m) => m.ResetPasswordModule
-      ),
-  },
 ];
 
 @NgModule({

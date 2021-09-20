@@ -15,7 +15,7 @@
             <div class="d-flex">
                 <input name="filterPost" [(ngModel)]="filterPost" class="form-control m-1 w-auto" type="search"
                     placeholder="Busqueda de registros" aria-label="Search" />
-                <button *ngIf="usuario.role == 'admin'" (click)="openModal()" class="btn btn-outline-primary d-flex align-items-center m-1">
+                <button *ngIf="usuario && usuario.role == 'admin'" (click)="openModal()" class="btn btn-outline-primary d-flex align-items-center m-1">
                     <mat-icon style="font-size: 18px; height: 18px">add_business</mat-icon>Agregar
                 </button>
             </div>
